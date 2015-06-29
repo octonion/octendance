@@ -1,0 +1,47 @@
+http://lup.fifa.com/live/common/competitions/womensworldcup/_feed/_listmachlive.js
+
+## Keys
+
+## sCss
+# "live", "result"
+
+## rw
+# ?
+
+## scorepenh
+# Penalty kick score for home team
+
+## scoreaggh
+# Overtime score for home team
+
+## min
+# Minute in regulation
+# "fifa.end1sthalf" "fifa.end2ndhalf"
+# M' - could it also be M'+S?
+
+## agg
+# Minute in overtime
+
+## idWinTeam
+# ID of winning team
+
+## scorepena
+# Penalty kick score for away team
+
+## scoreagga
+# Overtime score for away team
+
+## s
+# "live", "result"
+
+## r
+# Regulation score for the home team
+
+## r_ar
+# Regulation score for the away team
+
+## dt
+# date/time
+
+## id
+# Game ID
