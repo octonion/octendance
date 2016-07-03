@@ -205,9 +205,9 @@ for id in ids:
     string += hashtag
     print string
 
-   if Tweet:
-       print "Tweeting ..."
-       twitter.update_status(status=string)
+    if Tweet:
+        print "Tweeting ..."
+        twitter.update_status(status=string)
 
 while True:
 
