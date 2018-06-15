@@ -12,7 +12,7 @@ import os
 # True - prints to screen and tweets
 # False - only prints to screen
 
-Tweet = False
+Tweet = True
 
 # FIFA's hidden API
 
@@ -33,7 +33,7 @@ stoppage_2reg = 4
 stoppage_1ot = 1
 stoppage_2ot = 1
 
-hashtag = "\n\n#FIFAWC"
+hashtag = "\n\n#WorldCup"
 
 def overtime(mu1, mu2, min, up, outcome):
 
@@ -121,33 +121,33 @@ myopener = MyOpener()
 
 # Again, this part needs to be automated
 
-# 300331503
+# 300331526
 
-ids = [300331503]
+ids = [300331526]
 
 names = {}
-names[300331503] = ["#RUS", "#KSA"]
+names[300331526] = ["#MAR","#IRN"]
 
 team_name = {}
-team_name["rus"] = "Russia"
-team_name["ksa"] = "Saudi Arabia"
+team_name["irn"] = "Iran"
+team_name["mar"] = "Morocco"
 
 team_ids = {}
-team_ids[300331503] = ["rus", "ksa"]
+team_ids[300331526] = ["mar", "irn"]
 
 # Possibly for future use
 
 fields = {}
-fields[300331503] = "neutral"
+fields[300331526] = "neutral"
 
 score = {}
-score[300331503] = [0, 0]
+score[300331526] = [0, 0]
 
 status = {}
-status[300331503] = ""
+status[300331526] = ""
 
 home_p = {}
-home_p[300331503] = None
+home_p[300331526] = None
 
 # Possible status
 # Match starting time (local)
@@ -185,10 +185,13 @@ for id in ids:
     home_ot = overtime(mu1, mu2, 90, 0, "win")
     away_ot = overtime(mu1, mu2, 90, 0, "lose")
     draw_ot = overtime(mu1, mu2, 90, 0, "draw")
-    home_win = home_reg + draw_reg*(home_ot + 0.5*draw_ot)
-    away_win = 1.0 - home_win
+    #home_win = home_reg + draw_reg*(home_ot + 0.5*draw_ot)
+    home_win = home_reg
+    away_win = away_reg
+    draw = 1 - (home_win+away_win)
     print "%s wins - %.1f%%" % (home_name, home_win*100)
     print "%s wins - %.1f%%" % (away_name, away_win*100)
+    print "Draw - %.1f%%" % (draw*100)
     print
 
 # To test with a local file:
@@ -281,8 +284,8 @@ while True:
             away_ot = overtime(mu1, mu2, min, home_score-away_score, "lose")
             draw_ot = 1.0 - home_ot - away_ot
 
-            home_win = home_reg + draw_reg*(home_ot + 0.5*draw_ot)
-            away_win = 1.0 - home_win
+            home_win = home_reg # + draw_reg*(home_ot + 0.5*draw_ot)
+            away_win = away_reg #1.0 - home_win
 
             hw_string = "%.1f%%" % (home_win*100)
             aw_string = "%.1f%%" % (away_win*100)
@@ -444,13 +447,23 @@ while True:
             home_ot = overtime(mu1, mu2, min, home_score-away_score, "win")
             away_ot = overtime(mu1, mu2, min, home_score-away_score, "lose")
             draw_ot = 1.0 - home_ot - away_ot
+
+            #home_win = home_reg + draw_reg*(home_ot + 0.5*draw_ot)
+            home_win = home_reg # + draw_reg*(home_ot)
+            away_win = away_reg #+ draw_reg*(away_ot)
+            draw = 1 - (home_win+away_win)
+
+            #print "%s wins - %.1f%%" % (home_name, home_win*100)
+            #print "%s wins - %.1f%%" % (away_name, away_win*100)
+            #print "Draw - %.1f%%" % (draw*100)
+            #print
             
-            home_win = home_reg + draw_reg*(home_ot + 0.5*draw_ot)
-            away_win = 1.0 - home_win
+            #home_win = home_reg + draw_reg*(home_ot + 0.5*draw_ot)
+            #away_win = 1.0 - home_win
 
             hw_string = "%.1f%%" % (home_win*100)
             aw_string = "%.1f%%" % (away_win*100)
-
+            draw_string = "Draw - %.1f%%" % (draw*100)
         
             string =  "%s-%s : %s-%s\n" % (home,away,home_score,away_score)
             string += "time = " + new_status
@@ -475,10 +488,13 @@ while True:
 
                 if (home_p[id] == None):
                     string += home + " wins " + hw_string + "\n"
-                    string += away + " wins " + aw_string
+                    string += away + " wins " + aw_string + "\n"
+                    string += draw_string
                 else:
                     string += home + " wins " + hw_string + home_change + "\n"
-                    string += away + " wins " + aw_string + away_change
+                    #string += away + " wins " + aw_string + away_change
+                    string += away + " wins " + aw_string + "\n"
+                    string += draw_string
 
                 home_p[id] = home_win
 

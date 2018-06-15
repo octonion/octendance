@@ -39,9 +39,9 @@ join fifa.men_basic_factors bf
 where
 
     s1.team_id in
-    ('')
+    ('irn','mar')
 and s2.team_id in
-    ('')
+    ('irn','mar')
 );
 
 insert into fifa.mu
